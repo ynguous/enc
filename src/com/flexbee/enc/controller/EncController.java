@@ -13,9 +13,20 @@ import org.springframework.web.multipart.*;
 import java.io.IOException;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+//import java.nio.file;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.ShortBufferException;
 import javax.servlet.http.HttpServletResponse;
 //import org.apache.commons.io.IOUtils;
-
+import com.flexbee.enc.helpers.AESCrypt;
 
 @Controller
 public class EncController {
@@ -35,17 +46,27 @@ public class EncController {
 
 	@RequestMapping(value="/process", method = RequestMethod.POST)
 	//@ResponseBody
-	public void property(@RequestParam("fileUpload") MultipartFile fileUpload, HttpServletResponse response ) {
+	public void property(@RequestParam("fileUpload") MultipartFile fileUpload, @RequestParam("key") String key, HttpServletResponse response ) throws Exception {
 		try {
 			System.out.println("Enter /process");
+			System.out.println(key);
+		String inFileFullName = fileUpload.getOriginalFilename();
+		System.out.println(inFileFullName);
+		Path path = Paths.get(inFileFullName);
+		String inFileName = path.getFileName().toString();
+		System.out.println(inFileName);
 		byte[] bytes = fileUpload.getBytes();
+		//Cypher cypher = new Cypher();
+		AESCrypt cypher = new AESCrypt(key);
+		byte[] encryptedData = cypher.encode(bytes);
 		//byte[] encBytes = EncDec.encrypt(bytes, 1);
 		//byte[] decBytes = EncDec.decrypt(encBytes, 1);
 		//System.out.println(encBytes.length);
 	    //System.out.println(decBytes.length);
-	    InputStream is = new ByteArrayInputStream(bytes);
+	    InputStream is = new ByteArrayInputStream(encryptedData);
 	    response.setContentType("application/octet-stream");
-        response.setHeader("Content-Disposition", "attachment; filename=\"test.txt\"");
+	    String outFileName = inFileName + ".m";
+        response.setHeader("Content-Disposition", "attachment; filename=" + outFileName);
 
 	    //System.out.println(fileDto.getPassword());
 	    org.apache.commons.io.IOUtils.copy(is, response.getOutputStream());
@@ -59,16 +80,26 @@ public class EncController {
 
 	@RequestMapping(value="/decrypt", method = RequestMethod.POST)
 		//@ResponseBody
-	public void decrypt(@RequestParam("fileUpload2") MultipartFile fileUpload2, HttpServletResponse response ) {
+	public void decrypt(@RequestParam("fileUpload2") MultipartFile fileUpload2, @RequestParam("key2") String key2, HttpServletResponse response ) throws Exception {
 		try {
 		byte[] bytes = fileUpload2.getBytes();
+		AESCrypt cypher = new AESCrypt(key2);
+		byte[] decBytes = cypher.decode(bytes);
 		//byte[] encBytes = EncDec.encrypt(bytes, 1);
 		//byte[] decBytes = EncDec.decrypt(bytes, 1);
 		//System.out.println(decBytes.length);
 		//System.out.println(decBytes.length);
-		InputStream is = new ByteArrayInputStream(bytes);
+		String inFileFullName = fileUpload2.getOriginalFilename();
+		System.out.println(inFileFullName);
+		Path path = Paths.get(inFileFullName);
+		String inFileName = path.getFileName().toString();
+		System.out.println(inFileName);
+		String outFileName = inFileName.substring(0, inFileName.lastIndexOf("."));
+		System.out.println(outFileName);
+		
+		InputStream is = new ByteArrayInputStream(decBytes);
 		response.setContentType("application/octet-stream");
-		response.setHeader("Content-Disposition", "attachment; filename=\"test.txt\"");
+		response.setHeader("Content-Disposition", "attachment; filename=" + outFileName);
 
 		//System.out.println(fileDto.getPassword());
 		org.apache.commons.io.IOUtils.copy(is, response.getOutputStream());

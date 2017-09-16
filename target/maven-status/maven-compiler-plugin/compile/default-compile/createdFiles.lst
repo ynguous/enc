@@ -1,2 +1,3 @@
 com\flexbee\enc\controller\EncController.class
+com\flexbee\enc\helpers\Cypher.class
 com\flexbee\enc\controller\HelloWorldController.class
