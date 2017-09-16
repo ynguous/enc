@@ -70,6 +70,7 @@
 	
   <build>
     <sourceDirectory>src</sourceDirectory>
+    <finalName>enc</finalName>
     <resources>
       <resource>
         <directory>src</directory>
