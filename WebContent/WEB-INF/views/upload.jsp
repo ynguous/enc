@@ -44,17 +44,17 @@ $(document).ready(function() {
 <body>
 
 <form method="post" action="${pageContext.request.contextPath}/process" enctype="multipart/form-data">
-	<input id="key" name="key" type="text" style="width:300px;" placeholder="Key"  />
+	<input id="key" name="key" type="password" style="width:300px;" placeholder="Key"  />
 	
 	<input id="fileUpload" name="fileUpload" type="file" style="width:300px;padding-left:20px;" />
 	<input type="submit" id="submit" name="submit" value="Submit"/>
 
 </form>
-<br /><br/ >
+<br /><br />
 <!-- <input id="fileUploadSubmit" type="file" style="width:300px;padding-left:300px;padding-top:300px;" /> -->
 
 <form method="post" action="${pageContext.request.contextPath}/decrypt" enctype="multipart/form-data">
-	<input id="key2" name="key2" type="text" style="width:300px;" placeholder="Key" />
+	<input id="key2" name="key2" type="password" style="width:300px;" placeholder="Key" />
 	<input id="fileUpload2" name="fileUpload2" type="file" style="width:300px;padding-left:20px;" />
 	<input type="submit" id="submit2" name="submit2" value="Submit"/>
 
