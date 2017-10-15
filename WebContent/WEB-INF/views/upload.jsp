@@ -4,8 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel='stylesheet' href='webjars/bootstrap/3.2.0/css/bootstrap.min.css'>
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js" ></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js" ></script> -->
+<script type="text/javascript" src="webjars/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="webjars/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 	$('#fileUpload123').change(function() {
@@ -43,22 +46,80 @@ $(document).ready(function() {
 </head>
 <body>
 
+
 <form method="post" action="${pageContext.request.contextPath}/process" enctype="multipart/form-data">
-	<input id="key" name="key" type="password" style="width:300px;" placeholder="Key"  />
+<table class="table table-striped">
+	<thead>
+	<tr>
+		<th>
+			Key
+		</th>
+		<th>
+			File to Encrypt
+		</th>
+		<th>
+			Action
+		</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>
+			<input id="key" name="key" type="password" style="width:300px;" placeholder="Enter Key" />
+		</td>
+		<td>
+			<input id="fileUpload" name="fileUpload" type="file" style="width:300px;padding-left:20px;" />
+		</td>
+		<td>
+			<input type="submit" id="submit" name="submit" class="btn-primary" value="Submit"/>
+		</td>
+	</tr>
+	</tbody>
+</table>
 	
-	<input id="fileUpload" name="fileUpload" type="file" style="width:300px;padding-left:20px;" />
-	<input type="submit" id="submit" name="submit" value="Submit"/>
+	
+	
+	
 
 </form>
 <br /><br />
 <!-- <input id="fileUploadSubmit" type="file" style="width:300px;padding-left:300px;padding-top:300px;" /> -->
 
 <form method="post" action="${pageContext.request.contextPath}/decrypt" enctype="multipart/form-data">
-	<input id="key2" name="key2" type="password" style="width:300px;" placeholder="Key" />
+
+<table class="table table-striped">
+	<thead>
+	<tr>
+		<th>
+			Key
+		</th>
+		<th>
+			File to Encrypt
+		</th>
+		<th>
+			Action
+		</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+	<td>
+	<input id="key2" name="key2" type="password" style="width:300px;" placeholder="Enter Key" />
+	</td>
+	<td>
 	<input id="fileUpload2" name="fileUpload2" type="file" style="width:300px;padding-left:20px;" />
-	<input type="submit" id="submit2" name="submit2" value="Submit"/>
+	</td>
+	<td>
+	<input type="submit" id="submit2" name="submit2" value="Submit" class="btn-primary"/>
+	</td>
+	</tr>
+	</tbody>
+</table>	
+	
+	
 
 </form>
+
 
 </body>
 </html>
