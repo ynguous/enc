@@ -46,8 +46,9 @@ $(document).ready(function() {
 </head>
 <body>
 
-
 <form method="post" action="${pageContext.request.contextPath}/process" enctype="multipart/form-data">
+
+<div class="container">
 <table class="table table-striped">
 	<thead>
 	<tr>
@@ -76,17 +77,13 @@ $(document).ready(function() {
 	</tr>
 	</tbody>
 </table>
-	
-	
-	
-	
-
+</div>	
 </form>
 <br /><br />
 <!-- <input id="fileUploadSubmit" type="file" style="width:300px;padding-left:300px;padding-top:300px;" /> -->
 
 <form method="post" action="${pageContext.request.contextPath}/decrypt" enctype="multipart/form-data">
-
+<div class="container">
 <table class="table table-striped">
 	<thead>
 	<tr>
@@ -115,11 +112,8 @@ $(document).ready(function() {
 	</tr>
 	</tbody>
 </table>	
-	
-	
-
+</div>	
 </form>
-
 
 </body>
 </html>
